@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     
-    private AudioSource systemAudioSource;
+    private AudioSource systemSource;
     private List<AudioSource> activeSources;
     
     private void Awake()
@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            systemSource = gameObject.GetComponent<AudioSource>();
+            activeSources = new List<AudioSource>();
         }
         else
         {
@@ -24,29 +26,29 @@ public class AudioManager : MonoBehaviour
     // Funções de gerenciamento de áudio
     public void PlaySound(AudioClip clip)
     {
-        systemAudioSource.Stop();
-        systemAudioSource.clip = clip;
-        systemAudioSource.Play();
+        systemSource.Stop();
+        systemSource.clip = clip;
+        systemSource.Play();
     }
 
     public void StopSound()
     {
-        systemAudioSource.Stop();
+        systemSource.Stop();
     }
     
     public void PauseSound()
     {
-        systemAudioSource.Pause();
+        systemSource.Pause();
     }
     
     public void ResumeSound()
     {
-        systemAudioSource.UnPause();
+        systemSource.UnPause();
     }
     
     public void PlayOneShot(AudioClip clip)
     {
-        systemAudioSource.PlayOneShot(clip);
+        systemSource.PlayOneShot(clip);
     }
     
     //Funções de gerenciamento do áudio 3d
