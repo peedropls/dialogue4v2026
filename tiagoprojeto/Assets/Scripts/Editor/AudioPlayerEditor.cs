@@ -1,65 +1,61 @@
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(AudioPlayer))]
 public class AudioPlayerEditor : Editor
 {
-    private AudioPlayer audioPlayer;
-    private int indexInput = 0;
-
-    private void OnEnable()
-    {
-        audioPlayer = (AudioPlayer)target;
-        indexInput = audioPlayer.musicIndex;
-    }
-
     public override void OnInspectorGUI()
     {
+        AudioPlayer audioPlayer = (AudioPlayer)target;
+
         DrawDefaultInspector();
 
-        EditorGUILayout.Space(15);
-        EditorGUILayout.LabelField("Controles de Música", EditorStyles.boldLabel);
-        EditorGUILayout.Separator();
+        EditorGUILayout.Space();
 
-        // Campo para digitar o índice
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Índice da Música:", GUILayout.Width(120));
-        indexInput = EditorGUILayout.IntField(indexInput, GUILayout.Width(60));
-        
-        if (GUILayout.Button("Tocar", GUILayout.Width(80)))
+        // Dropdown para escolher a música
+        if (audioPlayer.myAudioCollection != null && audioPlayer.myAudioCollection.audioClipCollection.Count > 0)
         {
-            audioPlayer.PlayMusic(indexInput);
-        }
-        EditorGUILayout.EndHorizontal();
+            string[] options = new string[audioPlayer.myAudioCollection.audioClipCollection.Count];
+            for (int i = 0; i < audioPlayer.myAudioCollection.audioClipCollection.Count; i++)
+            {
+                options[i] = audioPlayer.myAudioCollection.audioClipCollection[i] != null ? audioPlayer.myAudioCollection.audioClipCollection[i].name : "Null";
+            }
 
-        EditorGUILayout.Space(10);
+            int selectedIndex = EditorGUILayout.Popup("Select Music", audioPlayer.currentIndex, options);
+            if (selectedIndex != audioPlayer.currentIndex)
+            {
+                audioPlayer.SetIndex(selectedIndex);
+            }
+        }
+
+        // Campo para definir o índice
+        int newIndex = EditorGUILayout.IntField("Music Index", audioPlayer.currentIndex);
+        if (newIndex != audioPlayer.currentIndex)
+        {
+            audioPlayer.SetIndex(newIndex);
+        }
+
+        EditorGUILayout.Space();
 
         // Botões de controle
-        EditorGUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("▶ Play Atual", GUILayout.Height(35)))
+        if (GUILayout.Button("Play"))
         {
-            audioPlayer.PlayMusic(audioPlayer.musicIndex);
+            audioPlayer.Play();
         }
 
-        if (GUILayout.Button("⏸ Pause", GUILayout.Height(35)))
+        if (GUILayout.Button("Pause"))
         {
             audioPlayer.Pause();
         }
 
-        if (GUILayout.Button("⏵ Resume", GUILayout.Height(35)))
+        if (GUILayout.Button("Resume"))
         {
             audioPlayer.Resume();
         }
 
-        if (GUILayout.Button("⏹ Stop", GUILayout.Height(35)))
+        if (GUILayout.Button("Stop"))
         {
             audioPlayer.Stop();
         }
-
-        EditorGUILayout.EndHorizontal();
     }
 }
-
-
-

@@ -5,8 +5,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     
-    private AudioSource systemSource;
-    private List<AudioSource> activeSources;
+    private AudioSource _systemSource;
+    private List<AudioSource> _activeSources;
     
     private void Awake()
     {
@@ -14,8 +14,8 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            systemSource = gameObject.GetComponent<AudioSource>();
-            activeSources = new List<AudioSource>();
+            _systemSource = gameObject.GetComponent<AudioSource>();
+            _activeSources = new List<AudioSource>();
         }
         else
         {
@@ -26,36 +26,36 @@ public class AudioManager : MonoBehaviour
     // Funções de gerenciamento de áudio
     public void PlaySound(AudioClip clip)
     {
-        systemSource.Stop();
-        systemSource.clip = clip;
-        systemSource.Play();
+        _systemSource.Stop();
+        _systemSource.clip = clip;
+        _systemSource.Play();
     }
 
     public void StopSound()
     {
-        systemSource.Stop();
+        _systemSource.Stop();
     }
     
     public void PauseSound()
     {
-        systemSource.Pause();
+        _systemSource.Pause();
     }
     
     public void ResumeSound()
     {
-        systemSource.UnPause();
+        _systemSource.UnPause();
     }
     
     public void PlayOneShot(AudioClip clip)
     {
-        systemSource.PlayOneShot(clip);
+        _systemSource.PlayOneShot(clip);
     }
     
     //Funções de gerenciamento do áudio 3d
     public void PlaySound(AudioClip clip, AudioSource source)
     {
-        if(activeSources.Contains(source)) activeSources.Add(source);
-        activeSources.Add(source);
+        if(_activeSources.Contains(source)) _activeSources.Add(source);
+        _activeSources.Add(source);
         source.Stop();
         source.clip = clip;
         source.Play();
@@ -64,7 +64,7 @@ public class AudioManager : MonoBehaviour
     public void StopSound(AudioSource source)
     {
         source.Stop();
-        activeSources.Remove(source);
+        _activeSources.Remove(source);
     }
     
     public void PauseSound(AudioSource source)

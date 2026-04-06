@@ -3,21 +3,21 @@ using UnityEngine;
 public class AudioPlayer : MonoBehaviour
 {
     public AudioCollection myAudioCollection;
-    public int currentIndex = 0;
+    public int currentIndex;
 
     void Start()
     {
-        if (myAudioCollection != null && myAudioCollection.AudioClipCollection.Count > 0 && currentIndex >= 0 && currentIndex < myAudioCollection.AudioClipCollection.Count)
+        if (myAudioCollection != null && myAudioCollection.audioClipCollection.Count > 0 && currentIndex >= 0 && currentIndex < myAudioCollection.audioClipCollection.Count)
         {
-            AudioManager.Instance.PlaySound(myAudioCollection.AudioClipCollection[currentIndex]);
+            AudioManager.Instance.PlaySound(myAudioCollection.audioClipCollection[currentIndex]);
         }
     }
 
     public void Play()
     {
-        if (myAudioCollection != null && myAudioCollection.AudioClipCollection.Count > 0 && currentIndex >= 0 && currentIndex < myAudioCollection.AudioClipCollection.Count)
+        if (myAudioCollection != null && myAudioCollection.audioClipCollection.Count > 0 && currentIndex >= 0 && currentIndex < myAudioCollection.audioClipCollection.Count)
         {
-            AudioManager.Instance.PlaySound(myAudioCollection.AudioClipCollection[currentIndex]);
+            AudioManager.Instance.PlaySound(myAudioCollection.audioClipCollection[currentIndex]);
         }
     }
 
@@ -38,18 +38,18 @@ public class AudioPlayer : MonoBehaviour
 
     public void SetIndex(int index)
     {
-        currentIndex = Mathf.Clamp(index, 0, myAudioCollection.AudioClipCollection.Count - 1);
+        currentIndex = Mathf.Clamp(index, 0, myAudioCollection.audioClipCollection.Count - 1);
     }
 
     public void PlayNext()
     {
-        currentIndex = (currentIndex + 1) % myAudioCollection.AudioClipCollection.Count;
+        currentIndex = (currentIndex + 1) % myAudioCollection.audioClipCollection.Count;
         Play();
     }
 
     public void PlayPrevious()
     {
-        currentIndex = (currentIndex - 1 + myAudioCollection.AudioClipCollection.Count) % myAudioCollection.AudioClipCollection.Count;
+        currentIndex = (currentIndex - 1 + myAudioCollection.audioClipCollection.Count) % myAudioCollection.audioClipCollection.Count;
         Play();
     }
 }

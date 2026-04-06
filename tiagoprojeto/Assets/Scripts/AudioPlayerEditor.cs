@@ -13,12 +13,12 @@ public class AudioPlayerEditor : Editor
         EditorGUILayout.Space();
 
         // Dropdown para escolher a música
-        if (audioPlayer.myAudioCollection != null && audioPlayer.myAudioCollection.AudioClipCollection.Count > 0)
+        if (audioPlayer.myAudioCollection != null && audioPlayer.myAudioCollection.audioClipCollection.Count > 0)
         {
-            string[] options = new string[audioPlayer.myAudioCollection.AudioClipCollection.Count];
-            for (int i = 0; i < audioPlayer.myAudioCollection.AudioClipCollection.Count; i++)
+            string[] options = new string[audioPlayer.myAudioCollection.audioClipCollection.Count];
+            for (int i = 0; i < audioPlayer.myAudioCollection.audioClipCollection.Count; i++)
             {
-                options[i] = audioPlayer.myAudioCollection.AudioClipCollection[i] != null ? audioPlayer.myAudioCollection.AudioClipCollection[i].name : "Null";
+                options[i] = audioPlayer.myAudioCollection.audioClipCollection[i] != null ? audioPlayer.myAudioCollection.audioClipCollection[i].name : "Null";
             }
 
             int selectedIndex = EditorGUILayout.Popup("Select Music", audioPlayer.currentIndex, options);
