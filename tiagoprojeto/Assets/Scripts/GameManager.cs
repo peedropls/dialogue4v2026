@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         // Assim que a inicialização termina, vai para o Splash
         LoadScene(splashSceneName);
+        SceneManager.LoadScene("GUI", LoadSceneMode.Additive);
     }
  
     // ── Troca de estado ────────────────────────────────────────────────────
@@ -70,6 +71,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"[GameManager] Carregando cena: {sceneName}");
             SceneManager.LoadScene(sceneName);
+
+// Se entrar na gameplay, carrega a GUI junto
+            if (sceneName == gameplaySceneName)
+            {
+                SceneManager.LoadScene(guiSceneName, LoadSceneMode.Additive);
+            }
         }
         else
         {
@@ -111,5 +118,6 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()  => LoadScene(mainMenuSceneName);
     public void GoToGameplay()  => LoadScene(gameplaySceneName);
     public void GoToSplash()    => LoadScene(splashSceneName);
+    [SerializeField] private string guiSceneName = "GUI";
 }
  

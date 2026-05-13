@@ -27,4 +27,9 @@ public class PlayerController : MonoBehaviour
             _rb.linearVelocity = Vector3.ClampMagnitude(_rb.linearVelocity, maxSpeed);
         }
     }
+
+    public void AddCoin()
+    {
+        throw new System.NotImplementedException();
+    }
 }
