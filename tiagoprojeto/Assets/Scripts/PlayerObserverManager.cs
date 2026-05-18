@@ -2,12 +2,21 @@ using System;
 
 public static class PlayerObserverManager
 {
-    // Evento das moedas
-    public static Action<int> OnCoinCollected;
+    
+    public static Action OnCoinPickup;
 
-    // Método para disparar o evento
-    public static void CoinCollected(int amount)
+    
+    public static Action<int> OnCoinUpdated;
+
+    
+    public static void CoinPickup()
     {
-        OnCoinCollected?.Invoke(amount);
+        OnCoinPickup?.Invoke();
+    }
+
+    
+    public static void CoinUpdated(int amount)
+    {
+        OnCoinUpdated?.Invoke(amount);
     }
 }

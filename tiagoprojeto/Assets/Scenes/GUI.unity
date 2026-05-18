@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2c45153f0f3d14180778dfe619af06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinUI
-  coinText: {fileID: 0}
+  coinText: {fileID: 988762258}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,10 +4,22 @@ public class PlayerCoin : MonoBehaviour
 {
     private int coins = 0;
 
-    public void AddCoin()
+    private void OnEnable()
+    {
+        PlayerObserverManager.OnCoinPickup += AddCoin;
+    }
+
+    private void OnDisable()
+    {
+        PlayerObserverManager.OnCoinPickup -= AddCoin;
+    }
+
+    private void AddCoin()
     {
         coins++;
+        
+        PlayerObserverManager.CoinUpdated(coins);
 
-        PlayerObserverManager.CoinCollected(coins);
+        Debug.Log("Moedas: " + coins);
     }
 }
